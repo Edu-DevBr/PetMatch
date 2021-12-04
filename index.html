@@ -15,7 +15,55 @@
             style="width: 300px"></a> </div>
       <div class="menu">
         <ul>
-          <li> <input name="search" placeholder="Pesquisar" type="search"> </li>
+          <li>
+            <input type="search" id="myInput" onkeyup="myFunction()" placeholder="Pesquisar">
+            <ul id="myUL">
+              <li style="display:none;" ;><a href="nossa_história.html">Informações</a></li>
+
+              <li style="display:none;"><a href="queroadotar.html">Pets</a></li>
+
+              <li style="display:none;"><a href="queroadotar.html">Adotar</a></li> <br>
+
+              <li style="display:none;"><a href="queroadotar.html">Cães</a></li>
+
+              <li style="display:none;"><a href="queroadotar.html">Gatos</a></li>
+
+              <li style="display:none;"><a href="queroadotar.html">Coelhos</a></li><br>
+
+              <li style="display:none;"><a href="cadastro_usuario.html">Castastro</a></li>
+
+              <li style="display:none;"><a href="login.html">Usuário</a></li>
+
+              <li style="display:none;"><a href="login.html">Perfil</a></li><br>
+
+              <li style="display:none;"><a href="login.html">Cadastrar Animal</a></li>
+
+              <li style="display:none;"><a href="pet_usuario1_info.html">Mel cadela</a></li>
+            </ul>
+
+            <script>
+              function myFunction() {
+                // Declare variables
+                var input, filter, ul, li, a, i, txtValue;
+                input = document.getElementById('myInput');
+                filter = input.value.toUpperCase();
+                ul = document.getElementById("myUL");
+                li = ul.getElementsByTagName('li');
+
+                // Loop through all list items, and hide those who don't match the search query
+                for (i = 0; i < li.length; i++) {
+                  a = li[i].getElementsByTagName("a")[0];
+                  txtValue = a.textContent || a.innerText;
+                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                  } else {
+                    li[i].style.display = "none";
+                  }
+                }
+              }
+            </script>
+
+
           <li> <button onclick="document.getElementById('id01').style.display='block'">Login</button>
           </li>
           <li class="dropdown"> <button class="dropbtn">Menu</button>
@@ -31,13 +79,14 @@
   <main> <img class="banner" src="img/gatos_banner.png">
     <!-- Html que gera a tela de login -->
     <div id="id01" class="modal">
-      <form class="modal-content animate" action="login.html" method="post">
+      <div class="modal-content animate">
         <div class="imgcontainer"> <span onclick="document.getElementById('id01').style.display='none'" class="close"
             title="Close Modal">×</span> <img src="img/img_avatar2.png" alt="Avatar" class="avatar"> </div>
         <div class="container"> <label for="uname"><b>Usuário</b></label> <input placeholder="Insira seu e-mail"
-            name="uname" required="" type="text">
+            name="uname" required="" type="text" id="username" maxlength="30">
           <label for="psw"><b>Senha</b></label> <input placeholder="Insira sua senha" name="psw" required=""
-          type="password"> <button type="submmit">Login</button>
+            type="password" id="password" size="6" maxlength="6" onkeypress="runScript(e)">
+          <button type="button" onclick="Login()">Login</button>
           <label> <input checked="checked" name="remember" type="checkbox">
             Lembrar login</label>
         </div>
@@ -45,7 +94,7 @@
             onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button>
           <span class="psw">Esqueceu a <a href="#">senha?</a></span>
         </div>
-      </form>
+      </div>
     </div>
     <!-- Fim componente de tela de login -->
   </main>
@@ -94,7 +143,27 @@
         modal.style.display = "none";
       }
     }
+ 
+    function Login() {
+      var usuario = document.getElementById('username').value;
+      var senha = document.getElementById('password').value;
+      if (usuario == "sosbichos@gmail.com" && senha == "123456") {
+        window.location.href = "login.html";
+      }
+
+      else {
+        alert("Dados incorretos, tente novamente");
+        window.location.href = "index.html"
+      }
+    }
+    function runScript(e) {
+      //See notes about 'which' and 'key'
+      if (e.keyCode == 13) {
+        Login();
+      }
+    }
   </script>
+
 </body>
 
 </html>
